@@ -7,7 +7,7 @@ async function fetchServerStatus(version) {
   if (version === 'java') {
     apiUrl = 'https://api.mcstatus.io/v2/status/java/1gsrv.falixsrv.me:25565';
   } else if (version === 'bedrock') {
-    apiUrl = 'https://api.mcstatus.io/v2/status/bedrock/1gsrv.falixsrv.me:19132';
+    apiUrl = 'https://api.mcstatus.io/v2/status/bedrock/1gsrv.falixsrv.me:39053';
   }
 
   statusDiv.innerHTML = 'Lade Statusdaten...';
