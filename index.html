@@ -3,48 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>KZU SMP Status</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: #fff;
-      margin: 0;
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-      color: #4caf50;
-    }
-    #tabs {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    .tab {
-      display: inline-block;
-      margin: 0 1rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 5px;
-      background-color: #333;
-    }
-    .tab.active {
-      background-color: #4caf50;
-    }
-    #status {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 1.2rem;
-    }
-    .online {
-      color: #4caf50;
-    }
-    .offline {
-      color: #f44336;
-    }
-    .info {
-      margin: 0.5rem 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>KZU SMP Serverstatus</h1>
@@ -54,61 +13,6 @@
   </div>
   <div id="status">Lade Statusdaten...</div>
 
-  <script>
-    const statusDiv = document.getElementById('status');
-    const tabs = document.querySelectorAll('.tab');
-    let currentVersion = 'java';
-
-    async function fetchServerStatus(version) {
-      let apiUrl = '';
-      if (version === 'java') {
-        apiUrl = 'https://api.mcstatus.io/v2/status/java/1gsrv.falixsrv.me:25565';
-      } else if (version === 'bedrock') {
-        apiUrl = 'https://api.mcstatus.io/v2/status/bedrock/1gsrv.falixsrv.me:19132';
-      }
-
-      statusDiv.innerHTML = 'Lade Statusdaten...';
-
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        statusDiv.innerHTML = '';
-
-        if (data.online) {
-          statusDiv.innerHTML = `
-            <div class="online">✅ Server ist ONLINE (${version.toUpperCase()})</div>
-            <div class="info">MOTD: ${data.motd.clean}</div>
-            <div class="info">Spieler: ${data.players.online}/${data.players.max}</div>
-            <div class="info">Version: ${data.version.name}</div>
-            <div class="info">Ping: ${data.latency}ms</div>
-          `;
-        } else {
-          statusDiv.innerHTML = `<div class="offline">❌ Server ist OFFLINE (${version.toUpperCase()})</div>`;
-        }
-      } catch (error) {
-        statusDiv.innerHTML = '❌ Fehler beim Laden der Statusdaten!';
-        console.error(error);
-      }
-    }
-
-    // Tabs Umschalten
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentVersion = tab.dataset.version;
-        fetchServerStatus(currentVersion);
-      });
-    });
-
-    // Initial laden
-    fetchServerStatus(currentVersion);
-
-    // Automatisch alle 60 Sekunden neu laden
-    setInterval(() => {
-      fetchServerStatus(currentVersion);
-    }, 60000);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
